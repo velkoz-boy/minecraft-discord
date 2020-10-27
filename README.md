@@ -1,0 +1,1 @@
+MinecraftとDiscordのチャットを連動させるbotつくる。
