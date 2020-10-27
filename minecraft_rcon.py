@@ -1,9 +1,6 @@
 import json
 import valve.rcon
 
-address = ("192.168.1.37", 25575)
-password = "123123123"
-
 class MinecraftRCON():
     def __init__(self, address, password, port=25575):
         self.address = address

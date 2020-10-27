@@ -1,0 +1,6 @@
+rcon:
+    address: "192.168.1.37"
+    password: "123123123"
+    port: 25575
+discord:
+    token: "NjQwMDk2MzY3Njk1NjI2MjQw.Xb02Mg.qs9kpfdvBxW0s5AiE2wuBQrwguE"
