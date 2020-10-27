@@ -14,6 +14,6 @@ class MinecraftRCON():
             rcon.execute("/{} {}".format(raw_commands, content), block=False)
             print("[executed] " + "/{} {}".format(raw_commands, content))  # TODO: logger
 
-    def send(self, content):
+    def chat(self, content):
         message = {"text": content}
         self.command(["tellraw", "@a"], json.dumps(message))
