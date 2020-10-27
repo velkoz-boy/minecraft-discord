@@ -1,5 +1,5 @@
 # minecraft-discord
 minecraftとdiscordのチャットを連動するbotをつくる。
 
-# 仕用プラグイン
+## 使用プラグイン
 https://python-valve.readthedocs.io/en/latest/rcon.html#
