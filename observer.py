@@ -53,7 +53,7 @@ async def observe_chat(path, discord_client):
                         )  # TODO: logger
                         await channel.send(log.get_content())
                 event_handler.lines = []
-                event_handler.pos = pos
+                pos = event_handler.pos
             await asyncio.sleep(0.01)
     except KeyboardInterrupt:
         observer.unschedule_all()
