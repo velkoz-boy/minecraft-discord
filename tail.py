@@ -50,7 +50,7 @@ async def observe_chat(path, discord_client):
                 for line in event_handler.lines:
                     log = MinecraftLog()
                     log.parse(line)
-                    channel = discord_client.get_channel(770624629412593666)
+                    channel = discord_client.get_channel(config["discord"]["channel"])
                     if log.is_chat():
                         await channel.send(log.get_content())
                 event_handler.lines = []
