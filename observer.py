@@ -39,18 +39,24 @@ async def observe_chat(path, discord_client):
     observer.schedule(event_handler, path, recursive=True)
     observer.start()
     pos = 0
-    while True:
-        # ネスト深いのでどうにかしたい
-        if pos != event_handler.pos:
-            for line in event_handler.lines:
-                log = MinecraftLog()
-                log.parse(line)
-                channel = discord_client.get_channel(config["discord"]["channel"])
-                if log.is_chat():
-                    print(
-                        "[FromMinecraft] {}".format(log.get_content())
-                    )  # TODO: logger
-                    await channel.send(log.get_content())
-            event_handler.lines = []
-            event_handler.pos = pos
-        await asyncio.sleep(0.01)
+    try:
+        while True:
+            # ネスト深いのでどうにかしたい
+            if pos != event_handler.pos:
+                for line in event_handler.lines:
+                    log = MinecraftLog()
+                    log.parse(line)
+                    channel = discord_client.get_channel(config["discord"]["channel"])
+                    if log.is_chat():
+                        print(
+                            "[FromMinecraft] {}".format(log.get_content())
+                        )  # TODO: logger
+                        await channel.send(log.get_content())
+                event_handler.lines = []
+                event_handler.pos = pos
+            await asyncio.sleep(0.01)
+    except KeyboardInterrupt:
+        observer.unschedule_all()
+        print("finish observer")           
+        observer.stop() 
+    observer.join() 
