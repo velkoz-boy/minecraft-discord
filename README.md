@@ -3,7 +3,8 @@ minecraftとdiscordのチャットを連動するbotをつくる。
 
 ## つかいかた
 yamlにいろいろ設定する。
-bot.py起動する。exe化したい。
+bot.py起動する。exe化したい。  
+(別にlinuxサーバー上でdockerコンテナで動かすでもいい気がするけど）
 
 ## Discord -> Minecraft
 RCONを使って、コマンドでチャット内容を送信する
