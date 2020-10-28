@@ -1,14 +1,12 @@
-from enum import Enum
 import datetime
-import itertools
 import re
 
 
 class MinecraftLog:
     """
-        [13:29:27] [Server thread/INFO]: Preparing spawn area: 0%
-        のように"[時刻] [ログ情報] 内容"でフォーマットされたログが渡される前提。
-        それ以外の形式のログが万が一渡ってきた場合は、例外を発生する可能性がある。
+    [13:29:27] [Server thread/INFO]: Preparing spawn area: 0%
+    のように"[時刻] [ログ情報] 内容"でフォーマットされたログが渡される前提。
+    それ以外の形式のログが万が一渡ってきた場合は、例外を発生する可能性がある。
     """
 
     def __init__(self):
@@ -24,10 +22,10 @@ class MinecraftLog:
         block = ""
         for character in iter(line):
             if not self.timestamp or not self.info:
-                if character == '[':
+                if character == "[":
                     block = ""
                     continue
-                elif character == ']':
+                elif character == "]":
                     self._parse(block)
                     block = ""
                 else:
@@ -38,8 +36,10 @@ class MinecraftLog:
 
     def _parse(self, block):
         if not self.timestamp:
-            time = block.split(":") 
-            self.timestamp = datetime.time(hour=int(time[0]), minute=int(time[1]), second=int(time[2]))
+            time = block.split(":")
+            self.timestamp = datetime.time(
+                hour=int(time[0]), minute=int(time[1]), second=int(time[2])
+            )
         elif not self.info:
             self.info = block
         elif not self.content:
@@ -49,5 +49,4 @@ class MinecraftLog:
         return self.content
 
     def is_chat(self):
-        return re.search("^<.*> .*|^\[.*\] .*", self.content)
-
+        return re.search("^<.*> .*|^\\[.*\\] .*", self.content)

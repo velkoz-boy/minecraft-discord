@@ -1,10 +1,6 @@
 import os
-import sys
-import time
 import re
 import asyncio
-import discord
-import chardet
 
 from config import get_config
 from minecraft_log import MinecraftLog
@@ -19,17 +15,17 @@ class TailHandler(FileSystemEventHandler):
     def __init__(self, path):
         self.path = path
         # Windowsしか想定していないのでshift_jisだが、macとかを考えると環境で変えるべき
-        self.file = open(path, 'r', encoding='shift_jis')
+        self.file = open(path, "r", encoding="shift_jis")
         self.pos = os.stat(path)[6]
         self.lines = []
-    
+
     def get_lines(self):
         self.file.seek(self.pos)
         # EOLは取得しない
         for line in re.findall(".*?\n", self.file.read()):
             yield line
         self.pos = self.file.tell()
-    
+
     def on_modified(self, event):
         lines = []
         for line in self.get_lines():
@@ -51,7 +47,9 @@ async def observe_chat(path, discord_client):
                 log.parse(line)
                 channel = discord_client.get_channel(config["discord"]["channel"])
                 if log.is_chat():
-                    print("[FromMinecraft] {}".format(log.get_content()))  # TODO: logger
+                    print(
+                        "[FromMinecraft] {}".format(log.get_content())
+                    )  # TODO: logger
                     await channel.send(log.get_content())
             event_handler.lines = []
             event_handler.pos = pos

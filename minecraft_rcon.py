@@ -2,14 +2,14 @@ import json
 import valve.rcon
 
 
-class MinecraftRCON():
+class MinecraftRCON:
     def __init__(self, address, password, port=25575):
         self.address = address
         self.password = password
         self.port = port
 
     def execute(self, commands):
-        raw_commands = ' '.join(commands)
+        raw_commands = " ".join(commands)
         with valve.rcon.RCON((self.address, self.port), self.password) as rcon:
             rcon.execute("/{}".format(raw_commands), block=False)
 
