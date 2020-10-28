@@ -1,6 +1,6 @@
 from config import get_config
 from discord_client import DiscordClient
-from tail import observe_chat
+from observer import observe_chat
 
 
 config = get_config()

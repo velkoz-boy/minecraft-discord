@@ -52,6 +52,7 @@ async def observe_chat(path, discord_client):
                     log.parse(line)
                     channel = discord_client.get_channel(config["discord"]["channel"])
                     if log.is_chat():
+                        print("[FromMinecraft] {}".format(log.get_content()))  # TODO: logger
                         await channel.send(log.get_content())
                 event_handler.lines = []
                 pos = event_handler.pos

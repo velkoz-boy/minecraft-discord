@@ -12,9 +12,9 @@ class MinecraftRCON():
         raw_commands = ' '.join(commands)
         with valve.rcon.RCON((self.address, self.port), self.password) as rcon:
             rcon.execute("/{}".format(raw_commands), block=False)
-            print("[FromDiscord] " + "/{}".format(raw_commands))  # TODO: logger
 
     def chat(self, author, content):
         content = "<{}> {}".format(author, content)
+        print("[FromDiscord] {}".format(content))  # TODO: logger
         message = {"text": content, "color": "blue"}
         self.execute(["tellraw", "@a", json.dumps(message)])
