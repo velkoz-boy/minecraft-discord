@@ -54,5 +54,5 @@ async def observe_chat(path, discord_client):
                     print("[FromMinecraft] {}".format(log.get_content()))  # TODO: logger
                     await channel.send(log.get_content())
             event_handler.lines = []
-            pos = event_handler.pos
+            event_handler.pos = pos
         await asyncio.sleep(0.01)
