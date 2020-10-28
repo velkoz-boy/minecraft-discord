@@ -1,27 +1,9 @@
-import discord
-import yaml
-
-#from tail import tail
-from minecraft_rcon import MinecraftRCON
+from config import get_config
+from discord_client import DiscordClient
+from tail import observe_chat
 
 
-with open("config.yaml", "r") as yml:
-    config = yaml.safe_load(yml)
-
-client = discord.Client()
-mcrcon = MinecraftRCON(config["rcon"]["address"], config["rcon"]["password"])
-
-@client.event
-async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
-    #tail(r"./server/logs/latest.log")
-
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-
-    if message.content:
-        mcrcon.chat(message.author.name, message.content)
-
+config = get_config()
+client = DiscordClient()
+client.loop.create_task(observe_chat(config["minecraft"]["log_dir"], client))
 client.run(config["discord"]["token"])
