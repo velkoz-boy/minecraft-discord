@@ -1,6 +1,10 @@
 # minecraft-discord
 minecraftとdiscordのチャットを連動するbotをつくる。
 
+## つかいかた
+yamlにいろいろ設定する。
+bot.py起動する。exe化したい。
+
 ## Discord -> Minecraft
 RCONを使って、コマンドでチャット内容を送信する
 
