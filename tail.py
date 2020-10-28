@@ -45,6 +45,7 @@ async def observe_chat(path, discord_client):
     try:
         pos = 0
         while True:
+            # ネスト深いのでどうにかしたい
             if pos != event_handler.pos:
                 for line in event_handler.lines:
                     log = MinecraftLog()
