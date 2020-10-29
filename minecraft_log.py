@@ -32,7 +32,7 @@ class MinecraftLog:
                     block += character
             else:
                 block += character
-        self._parse(block)
+        self._parse(block.lstrip(": "))
 
     def _parse(self, block):
         if not self.timestamp:
@@ -43,7 +43,7 @@ class MinecraftLog:
         elif not self.info:
             self.info = block
         elif not self.content:
-            self.content = block.lstrip(": ")
+            self.content = block
 
     def get_content(self):
         return self.content
