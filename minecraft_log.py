@@ -15,38 +15,22 @@ class MinecraftLog:
         self.content = ""
 
     def parse(self, line):
-        if not line.startswith("["):
-            # "["で始まらないログは空文字で返す（使わないので）
-            return ""
+        target = r"^\[(\d+:\d+:\d+)\] \[(.+)\]: (.+)"
+        target_line = re.match(target, line)
+        if target_line:
+            (time, info, content) = target_line.groups()
+            self.timestamp = self._parse_time(time)
+            self.info = info
+            self.content = content
 
-        block = ""
-        for character in iter(line):
-            if not self.timestamp or not self.info:
-                if character == "[":
-                    block = ""
-                    continue
-                elif character == "]":
-                    self._parse(block)
-                    block = ""
-                else:
-                    block += character
-            else:
-                block += character
-        self._parse(block.lstrip(": "))
-
-    def _parse(self, block):
-        if not self.timestamp:
-            time = block.split(":")
-            self.timestamp = datetime.time(
-                hour=int(time[0]), minute=int(time[1]), second=int(time[2])
-            )
-        elif not self.info:
-            self.info = block
-        elif not self.content:
-            self.content = block
+    def _parse_time(self, time):
+        time = time.split(":")
+        return datetime.time(
+            hour=int(time[0]), minute=int(time[1]), second=int(time[2])
+        )
 
     def get_content(self):
         return self.content
 
     def is_chat(self):
-        return re.search("^<.*> .*|^\\[.*\\] .*", self.content)
+        return re.search("^<.+> .*|^\\[.+\\] .*", self.content)
