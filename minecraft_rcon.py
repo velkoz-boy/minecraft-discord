@@ -11,7 +11,7 @@ class MinecraftRCON:
     def execute(self, commands):
         raw_commands = " ".join(commands)
         with valve.rcon.RCON((self.address, self.port), self.password) as rcon:
-            rcon.execute("/{}".format(raw_commands), block=False)
+            rcon.execute("/{}".format(raw_commands), block=False, timeout=10)
 
     def chat(self, author, content):
         content = "<{}> {}".format(author, content)
